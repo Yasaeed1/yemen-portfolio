@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4efeb">
+  <meta name="description" content="معرض أعمال يضم متجر صَرح، وعرضًا تفاعليًا عن اليمن، وملصقًا تعريفيًا عن سقطرى.">
+  <title>معرض الأعمال | من المكان إلى التصميم</title>
+  <style>
+    :root {
+      --paper:#f4efeb; --ink:#1e2834; --muted:#5e626b; --blue:#2f617b;
+      --dark:#151a23; --peach:#f1ccbb; --edge:clamp(1.1rem,5vw,5.8rem);
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:1rem/1.75 "Noto Sans Arabic",Tahoma,Arial,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; width:100%; }
+    h1,h2,h3,p,figure { margin:0; }
+    :focus-visible { outline:3px solid #a45940; outline-offset:5px; }
+    .skip { position:fixed; z-index:9; inset:1rem auto auto 1rem; background:#fff; padding:.5rem 1rem; transform:translateY(-180%); }
+    .skip:focus { transform:none; }
+    .nav {
+      position:sticky; z-index:5; top:0; display:flex; align-items:center; justify-content:space-between;
+      padding:.9rem var(--edge); gap:.65rem; background:#f4efecee; backdrop-filter:blur(14px);
+    }
+    .home { display:flex; gap:.6rem; align-items:center; font-weight:800; }
+    .mark { display:grid; grid-template-columns:repeat(2,.37rem); gap:.16rem; transform:rotate(-12deg); }
+    .mark i { width:.37rem; height:.37rem; border-radius:.12rem; background:var(--blue); }
+    .mark i:nth-child(2) { background:#d78e70; }
+    .nav-links { display:flex; align-items:center; gap:clamp(.8rem,3vw,2.5rem); color:var(--muted); }
+    .nav-links a:hover, .footer a:hover { text-decoration:underline; text-underline-offset:.35em; }
+    .button { display:inline-flex; min-height:2.8rem; align-items:center; justify-content:center; border-radius:.65rem; padding:.45rem 1rem; background:var(--ink); color:#fff; font-weight:700; white-space:nowrap; }
+    .button:hover { background:#374759; }
+    #works,#socotra { scroll-margin-top:5.5rem; }
+
+    .hero {
+      min-height:min(48rem,86svh); display:grid; justify-items:center; align-content:center;
+      text-align:center; padding:clamp(3rem,9vw,7rem) var(--edge) 2rem;
+      background:radial-gradient(ellipse at 50% 92%,#e7deda,transparent 68%);
+      overflow:hidden;
+    }
+    .hero-copy { position:relative; }
+    .glyphs { display:flex; justify-content:center; gap:.52rem; padding-bottom:.85rem; }
+    .glyphs i { width:.65rem; height:.65rem; background:#92b7c2; border:2px solid #3c5e6f; transform:rotate(45deg); }
+    .glyphs i:nth-child(2n) { background:#e6a788; border-color:#a45e4a; }
+    .hero h1 { font-size:clamp(2.85rem,8vw,8rem); line-height:1.2; letter-spacing:0; }
+    .hero h1 span { display:inline-block; }
+    .hero p { color:var(--muted); margin:.65rem 0 1.2rem; font-size:clamp(1rem,2vw,1.2rem); }
+    .hero-fan { position:relative; width:min(100%,45rem); height:clamp(10.8rem,22vw,17rem); margin-top:clamp(1.3rem,4vw,3rem); }
+    .hero-fan figure, .moving-card {
+      overflow:hidden; background:#fff; border:.28rem solid #fff; border-radius:.85rem;
+      box-shadow:0 .7rem 2rem #1e28342a;
+    }
+    .hero-fan figure { position:absolute; inset-inline-start:50%; width:clamp(6rem,19vw,14.5rem); aspect-ratio:1.07; }
+    .hero-fan figure:nth-child(1) { transform:translate(43%,20%) rotate(14deg); }
+    .hero-fan figure:nth-child(2) { transform:translate(-50%,0) rotate(-4deg); z-index:1; }
+    .hero-fan figure:nth-child(3) { transform:translate(-139%,18%) rotate(-13deg); }
+    .hero-fan img,.moving-card img { height:100%; object-fit:cover; object-position:top; }
+
+    .story { display:none; }
+    .motion .story { display:block; height:230svh; background:#e9e3ed; }
+    .story-stage {
+      position:sticky; top:0; height:100svh; overflow:hidden; text-align:center;
+      padding:clamp(5rem,14vh,10rem) var(--edge) 2rem;
+      background:radial-gradient(ellipse at 11% 20%,#ffe6d6,transparent 57%),linear-gradient(140deg,#ede5ec,#dce7ec);
+    }
+    .story-stage h2 { font-size:clamp(2rem,5vw,5rem); line-height:1.2; }
+    .story-stage p { color:var(--muted); margin-top:.6rem; }
+    .moving-card {
+      position:absolute; width:clamp(7rem,23vw,18rem); aspect-ratio:1.08;
+      inset-inline-start:50%; top:64%; z-index:1;
+      translate:50% -50%; will-change:transform;
+    }
+    .moving-card:nth-of-type(2) { z-index:2; }
+    .moving-card img[src*="socotra"] { object-position:center 38%; }
+
+    .works { padding:clamp(3rem,8vw,8rem) var(--edge); max-width:100rem; margin:auto; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; border-bottom:1px solid #d7ccc6; padding-bottom:1rem; margin-bottom:1.65rem; gap:1rem; }
+    .section-head h2 { font-size:clamp(2rem,5vw,4.55rem); line-height:1.2; }
+    .section-head p { color:var(--muted); }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(1rem,2.35vw,2rem); }
+    .work {
+      display:flex; flex-direction:column; min-width:0; background:#fffbf7;
+      border:1px solid #e3d9d2; border-radius:1rem; overflow:hidden;
+    }
+    .work-media { display:block; overflow:hidden; aspect-ratio:1.34; background:#dedee2; }
+    .work-media img { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .55s ease; }
+    .work-media:hover img { transform:scale(1.055); }
+    .work-media:focus-visible { outline-offset:-5px; }
+    .work:nth-child(3) .work-media { background:#dbe5e1; }
+    .work:nth-child(3) .work-media img { object-position:center 38%; }
+    .work-copy { display:flex; flex:1; flex-direction:column; align-items:start; padding:1.1rem 1.1rem 1.3rem; }
+    .work-copy small { color:var(--blue); font-size:.85rem; }
+    .work h3 { font-size:clamp(1.25rem,1.85vw,1.75rem); line-height:1.4; margin:.25rem 0 .55rem; }
+    .work p { color:var(--muted); margin-bottom:1rem; }
+    .work-copy a { color:#244e65; font-weight:700; margin-top:auto; text-decoration:underline; text-underline-offset:.25em; }
+
+    .feature-shell { background:#dbe7e9; }
+    .feature {
+      display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.8fr); align-items:center;
+      gap:clamp(1.5rem,8vw,8rem); padding:clamp(2.8rem,8vw,8rem) var(--edge);
+      min-height:min(44rem,100svh); overflow:hidden;
+      background:radial-gradient(ellipse at 12% 5%,#f5d2bd,transparent 49%),linear-gradient(120deg,#bacfd9,#f0e4de);
+    }
+    .feature h2 { font-size:clamp(2.6rem,6vw,6rem); line-height:1.18; }
+    .feature p { max-width:36rem; margin:.85rem 0 1.2rem; }
+    .feature small { color:#325566; font-size:.9rem; }
+    .poster { width:min(100%,23rem); margin-inline:auto; filter:drop-shadow(0 1.45rem 1.8rem #232e4152); }
+    .poster img { border-radius:.23rem; }
+    .feature-source { margin-top:1rem; }
+    .feature-source a { font-size:.9rem; text-decoration:underline; text-underline-offset:.24em; color:#2a4c5c; }
+    .motion .feature-shell { min-height:145svh; }
+    .motion .feature { position:sticky; top:0; min-height:100svh; clip-path:inset(var(--crop-y,0%) var(--crop-x,0%) round var(--radius,0rem)); }
+    .motion .poster { transform:scale(var(--poster-scale,1)) rotate(var(--poster-angle,0deg)); transform-origin:center; }
+    .motion .feature:focus-within { clip-path:none; }
+
+    .closing { background:var(--dark); color:#fff; overflow:clip; }
+    .closing-inner { padding:clamp(3.5rem,9vw,8rem) var(--edge); overflow:hidden; }
+    .rail { display:flex; align-items:center; gap:.48em; flex-wrap:wrap; font-size:clamp(2rem,6vw,7rem); font-weight:800; line-height:1.35; }
+    .rail span { color:#fff9f3; }
+    .rail b { font-size:.47em; padding:.14em .52em; background:var(--peach); color:var(--dark); border-radius:.35em; transform:rotate(7deg); }
+    .rail b:nth-of-type(2) { background:#c7dfe5; transform:rotate(-6deg); }
+    .rail b:nth-of-type(3) { background:#d5cee9; transform:rotate(6deg); }
+    .motion .closing { height:175svh; }
+    .motion .closing-inner { position:sticky; top:0; height:100svh; display:flex; align-items:center; }
+    .motion .rail { min-width:max-content; flex-wrap:nowrap; transform:translateX(var(--pan,0px)); }
+    .footer { display:flex; align-items:center; justify-content:space-between; padding:1.2rem var(--edge); gap:1.2rem; color:#f7efe9; background:var(--dark); border-top:1px solid #ffffff30; }
+
+    @keyframes words-enter { from { opacity:0; transform:translateY(.55em); filter:blur(.18em); } }
+    @keyframes icon-enter { from { opacity:0; transform:translateY(.5rem) rotate(45deg) scale(.4); } }
+    @media(prefers-reduced-motion:no-preference) {
+      html { scroll-behavior:smooth; }
+      .hero h1 span { animation:words-enter .85s cubic-bezier(.2,.7,.2,1) both; }
+      .hero h1 span:nth-child(2) { animation-delay:.22s; }
+      .hero h1 span:nth-child(3) { animation-delay:.4s; }
+      .hero h1 span:nth-child(4) { animation-delay:.53s; }
+      .hero h1 span:nth-child(5) { animation-delay:.66s; }
+      .glyphs i { animation:icon-enter .7s ease-out both; }
+      .glyphs i:nth-child(2n) { animation-delay:.17s; }
+    }
+    @media(prefers-reduced-motion:reduce) { .work-media img { transition:none; } }
+    @media(max-width:760px) {
+      .nav-links { display:none; }
+      .hero { min-height:0; }
+      .grid { grid-template-columns:1fr; }
+      .section-head { display:block; }
+      .section-head p { margin-top:.35rem; }
+      .feature { grid-template-columns:1fr; }
+      .poster { width:min(88%,23rem); }
+    }
+    @media(max-height:540px) and (orientation:landscape) {
+      .hero { padding-top:1.6rem; min-height:0; }
+      .hero-fan { height:11rem; }
+      .motion .story { display:none; }
+    }
+    @media(max-width:360px) {
+      .home { font-size:.9rem; }
+      .nav .button { font-size:.83rem; padding-inline:.65rem; }
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip" href="#works">انتقل إلى الأعمال</a>
+  <nav class="nav" aria-label="القائمة الرئيسية">
+    <a class="home" href="#top"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>معرض الأعمال</a>
+    <div class="nav-links"><a href="#works">الأعمال</a><a href="#socotra">ملصق سقطرى</a></div>
+    <a class="button" href="#works">استعرض الأعمال</a>
+  </nav>
+  <main>
+    <header class="hero">
+      <div class="hero-copy">
+        <div class="glyphs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <h1><span>من</span> <span>المكان</span> <span>إلى</span> <span>التصميم</span></h1>
+        <p>متجر، وعرض تفاعلي، وملصق بصري عن اليمن.</p>
+      </div>
+      <div class="hero-fan" aria-hidden="true">
+        <figure><img src="assets/sarh.webp" alt=""></figure>
+        <figure><img src="assets/socotra-poster.webp" alt="" fetchpriority="high"></figure>
+        <figure><img src="assets/yemen-slides.webp" alt=""></figure>
+      </div>
+    </header>
+
+    <div class="story" aria-hidden="true">
+      <div class="story-stage">
+        <h2>ثلاثة أعمال، من اليمن</h2>
+        <p>تجارب للشراء والاستكشاف والقراءة.</p>
+        <figure class="moving-card"><img src="assets/sarh.webp" alt="" loading="lazy"></figure>
+        <figure class="moving-card"><img src="assets/socotra-poster.webp" alt="" loading="lazy"></figure>
+        <figure class="moving-card"><img src="assets/yemen-slides.webp" alt="" loading="lazy"></figure>
+      </div>
+    </div>
+
+    <section class="works" id="works" aria-labelledby="works-heading">
+      <header class="section-head"><h2 id="works-heading">الأعمال</h2><p>ثلاثة مشاريع في تصميم الويب والعرض البصري.</p></header>
+      <div class="grid">
+        <article class="work">
+          <a class="work-media" href="https://sarh-store.pages.dev/" aria-label="شاهد متجر صَرح"><img src="assets/sarh.webp" alt="واجهة متجر صَرح ويظهر فيها مجسم باب اليمن فوق تدرج أزرق." width="1120" height="800" loading="lazy"></a>
+          <div class="work-copy">
+            <small>موقع تجاري</small>
+            <h3>متجر صَرح</h3>
+            <p>متجر يعرض ست قطع ومجسّمات يمنية، ويتيح طلب المجسّمات عبر واتساب.</p>
+            <a href="https://sarh-store.pages.dev/">زيارة متجر صَرح</a>
+          </div>
+        </article>
+        <article class="work">
+          <a class="work-media" href="https://yemen-presentation.pages.dev/" aria-label="شاهد العرض التفاعلي"><img src="assets/yemen-slides.webp" alt="واجهة العرض وفيها غلاف الشرائح وفهرس الموضوعات." width="1120" height="800" loading="lazy"></a>
+          <div class="work-copy">
+            <small>عرض تفاعلي</small>
+            <h3>اليمن: ثلاثية العبقرية والمكان</h3>
+            <p>عارض يضم عشر شرائح عن مأرب وزبيد وسقطرى، مع فهرس وتكبير للتفاصيل.</p>
+            <a href="https://yemen-presentation.pages.dev/">فتح العرض التفاعلي</a>
+          </div>
+        </article>
+        <article class="work">
+          <a class="work-media" href="#socotra" aria-label="شاهد ملصق سقطرى"><img src="assets/socotra-poster.webp" alt="ملصق سقطرى يتوسطه رسم لشجرة دم الأخوين فوق ساحل تركوازي." width="864" height="1296" loading="lazy"></a>
+          <div class="work-copy">
+            <small>تصميم ملصق</small>
+            <h3>سقطرى: جزيرة دم الأخوين</h3>
+            <p>ملصق مصوّر يعرّف بالأرخبيل وتنوّعه الطبيعي من خلال أبرز رموزه.</p>
+            <a href="#socotra">معاينة الملصق</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="feature-shell" id="socotra" aria-labelledby="socotra-heading">
+      <div class="feature">
+        <div class="feature-copy">
+          <small>ملصق تعريفي</small>
+          <h2 id="socotra-heading">جزيرة دم الأخوين</h2>
+          <p>في أرخبيل سقطرى اليمني، تمتد شجرة دم الأخوين بمظلّتها فوق الهضاب الصخرية. يعرّف الملصق بهذا المشهد وبالتنوّع الحيوي الذي يميّز الأرخبيل.</p>
+          <a class="button" href="assets/socotra-poster.pdf" type="application/pdf">فتح الملصق <bdi>&nbsp; PDF</bdi></a>
+          <div class="feature-source"><a href="https://whc.unesco.org/en/list/1263/">أرخبيل سقطرى في قائمة التراث العالمي لليونسكو</a></div>
+        </div>
+        <figure class="poster"><img src="assets/socotra-poster.webp" alt="سقطرى، جزيرة دم الأخوين. ملصق لحياة الأرخبيل الطبيعية يذكر إدراجه على قائمة التراث العالمي عام ٢٠٠٨ ونسبة نباتاته المتوطّنة." width="864" height="1296" loading="lazy"></figure>
+      </div>
+    </section>
+
+    <section class="closing" aria-label="ختام المعرض">
+      <div class="closing-inner">
+        <div class="rail"><span>من تفاصيل المكان</span><b>تراث</b><span>إلى أعمال تُستكشف</span><b>تصميم</b><span>بالصورة والكلمة</span><b>اليمن</b></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>معرض الأعمال</span><a href="#top">العودة إلى البداية</a></footer>
+  <script>
+    const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
+    const largeScreen = matchMedia("(min-width: 761px) and (min-height: 541px)");
+    const story = document.querySelector(".story");
+    const cards = [...document.querySelectorAll(".moving-card")];
+    const featureShell = document.querySelector(".feature-shell");
+    const feature = document.querySelector(".feature");
+    const closing = document.querySelector(".closing");
+    const rail = document.querySelector(".rail");
+    let frame = 0;
+
+    const clamp = (value) => Math.max(0, Math.min(1, value));
+    const ease = (value) => {
+      const progress = clamp(value);
+      return progress * progress * (3 - 2 * progress);
+    };
+    const mix = (from, to, progress) => from + (to - from) * progress;
+    const relative = (progress, start, end) => ease((progress - start) / (end - start));
+
+    function paint() {
+      frame = 0;
+      if (!document.body.classList.contains("motion")) return;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const storyBounds = story.getBoundingClientRect();
+      const storyProgress = clamp(-storyBounds.top / Math.max(1, storyBounds.height - height));
+      const spread = relative(storyProgress, .04, .3);
+      const stack = relative(storyProgress, .31, .55);
+      const wheel = relative(storyProgress, .57, .83);
+      const turn = relative(storyProgress, .78, 1);
+      cards.forEach((card, index) => {
+        const offset = index - 1;
+        const x = mix(mix(offset * width * .16, offset * width * .29, spread), offset * 16, stack);
+        const y = mix(mix(Math.abs(offset) * 22, index === 1 ? 75 : -23, spread), offset * 5, stack);
+        const rotation = mix(mix(offset * 13, offset * 27, spread), offset * 8, stack);
+        const angle = offset * .72 - turn * .22;
+        const arcX = Math.sin(angle) * width * .31;
+        const arcY = (1 - Math.cos(angle)) * height * .31 - 12;
+        card.style.transform = `translate3d(${mix(x, arcX, wheel)}px,${mix(y, arcY, wheel)}px,0) rotate(${mix(rotation, angle * 35, wheel)}deg)`;
+      });
+
+      const featureBounds = featureShell.getBoundingClientRect();
+      const reveal = ease((height * .82 - featureBounds.top) / (height * .82));
+      const linger = clamp(-featureBounds.top / Math.max(1, featureBounds.height - height));
+      feature.style.setProperty("--crop-x", mix(33, 0, reveal) + "%");
+      feature.style.setProperty("--crop-y", mix(26, 0, reveal) + "%");
+      feature.style.setProperty("--radius", mix(1.45, 0, reveal) + "rem");
+      feature.style.setProperty("--poster-scale", mix(.68, 1, reveal) + ease(linger) * .1);
+      feature.style.setProperty("--poster-angle", mix(-8, 1.5, reveal) + ease(linger) * 3 + "deg");
+
+      const closingBounds = closing.getBoundingClientRect();
+      const closingProgress = clamp(-closingBounds.top / Math.max(1, closingBounds.height - height));
+      rail.style.setProperty("--pan", Math.max(0, rail.scrollWidth - closing.clientWidth * .88) * closingProgress + "px");
+    }
+
+    function schedulePaint() {
+      if (!frame) frame = requestAnimationFrame(paint);
+    }
+
+    function setMotion() {
+      document.body.classList.toggle("motion", !motionPreference.matches && largeScreen.matches);
+      schedulePaint();
+    }
+    motionPreference.addEventListener("change", setMotion);
+    largeScreen.addEventListener("change", setMotion);
+    addEventListener("scroll", schedulePaint, { passive:true });
+    addEventListener("resize", schedulePaint, { passive:true });
+    setMotion();
+  </script>
+</body>
+</html>
